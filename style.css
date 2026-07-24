@@ -1,0 +1,291 @@
+:root{
+  --console-body: #24272c;
+  --console-dark: #15171a;
+  --console-highlight: #3a3e46;
+  --screen-bg: #18181a;       /* charcoal black */
+  --accent-red: #e6352c;
+  --accent-red-dim: #7a1e18;
+  --accent-red-glow: rgba(230,53,44,0.55);
+  --text-light: #d7dadf;
+  --text-dim: #7d828c;
+  --btn: #2f333a;
+  --btn-highlight: #454a53;
+}
+
+*{
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body{
+  margin:0; padding:0;
+  width:100%; height:100%;
+  background: radial-gradient(ellipse at top, #1c1e22, #08090a 75%);
+  font-family: 'Courier New', monospace;
+  overflow:hidden;
+  touch-action: none;
+  user-select: none;
+}
+
+.console{
+  width:100vw;
+  height:100vh;
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  padding: clamp(16px, 3vh, 40px);
+  gap: clamp(16px, 2.5vw, 32px);
+}
+
+/* ---------- LEFT: SCREEN PANEL ---------- */
+
+.screen-panel{
+  flex: 1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(160deg, var(--console-highlight), var(--console-body) 45%, var(--console-dark));
+  border-radius: 18px;
+  padding: clamp(14px, 2vw, 28px);
+  box-shadow:
+    0 25px 70px rgba(0,0,0,0.55),
+    inset 0 2px 3px rgba(255,255,255,0.08),
+    inset 0 -6px 14px rgba(0,0,0,0.45);
+  position: relative;
+  min-width: 0;
+}
+
+.screen-panel::before{
+  content:'';
+  position:absolute;
+  top: 14px; left: 14px; right:14px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+  opacity:0.6;
+  border-radius: 2px;
+}
+
+.screen-bezel{
+  background: #0a0b0c;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: inset 0 4px 14px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.03);
+  height: 100%;
+  width: 100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.screen{
+  background: var(--screen-bg);
+  border-radius: 4px;
+  aspect-ratio: 4 / 3.1;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: 100%;
+  position: relative;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.75);
+  overflow:hidden;
+}
+
+.screen.shake{
+  animation: screenShake 0.4s ease;
+}
+
+@keyframes screenShake{
+  0%   { transform: translate(0,0); }
+  15%  { transform: translate(-6px, 3px); }
+  30%  { transform: translate(5px, -4px); }
+  45%  { transform: translate(-5px, 4px); }
+  60%  { transform: translate(6px, 2px); }
+  75%  { transform: translate(-3px, -3px); }
+  90%  { transform: translate(2px, 2px); }
+  100% { transform: translate(0,0); }
+}
+
+canvas{
+  width:100%; height:100%;
+  display:block;
+  image-rendering: pixelated;
+}
+
+.overlay{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  color: var(--text-light);
+  text-align:center;
+  padding: 10px;
+  z-index: 3;
+  background: rgba(17,18,20,0.5);
+}
+
+.overlay.hidden{ display:none; }
+
+.overlay h1{
+  font-size: clamp(20px, 2.4vw, 34px);
+  margin: 0 0 10px;
+  letter-spacing: 4px;
+  color: var(--accent-red);
+  text-shadow: 0 0 14px var(--accent-red-glow);
+}
+
+.overlay p{
+  font-size: clamp(11px, 1vw, 15px);
+  margin: 4px 0;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.blink{
+  animation: blink 1.1s steps(1) infinite;
+  color: var(--text-light) !important;
+}
+
+@keyframes blink{
+  50% { opacity: 0; }
+}
+
+/* ---------- RIGHT: CONTROL PANEL ---------- */
+
+.control-panel{
+  width: clamp(240px, 22vw, 340px);
+  flex-shrink:0;
+  background: linear-gradient(180deg, var(--console-highlight), var(--console-body) 40%, var(--console-dark));
+  border-radius: 18px;
+  padding: clamp(16px, 2.5vh, 28px) 18px;
+  box-shadow:
+    0 25px 70px rgba(0,0,0,0.55),
+    inset 0 2px 3px rgba(255,255,255,0.08),
+    inset 0 -6px 14px rgba(0,0,0,0.45);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content: space-between;
+}
+
+.brand{
+  text-align:center;
+  color: var(--text-light);
+  font-size: 13px;
+  letter-spacing: 3px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.brand span{
+  color: var(--accent-red);
+  display:block;
+  font-size: 15px;
+  letter-spacing: 5px;
+  margin-top: 4px;
+}
+
+.panel-section{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.stats-plate{
+  width:100%;
+  background: var(--console-dark);
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+  margin: 14px 0;
+}
+
+.stat-row{
+  display:flex;
+  justify-content:space-between;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  padding: 4px 0;
+}
+
+.stat-row .value{
+  color: var(--accent-red);
+  font-weight:bold;
+}
+
+.soft-label{
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  margin: 4px 0;
+}
+
+.dpad{
+  width: 168px;
+  height: 168px;
+  position:relative;
+  margin: 10px 0;
+}
+
+.dbtn{
+  position:absolute;
+  width: 56px; height: 56px;
+  background: linear-gradient(160deg, var(--btn-highlight), var(--btn));
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 0 #0e0f11, 0 6px 10px rgba(0,0,0,0.5);
+  color: var(--text-light);
+  font-size: 18px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  transition: box-shadow 0.05s, transform 0.05s;
+}
+
+.dbtn:hover{
+  color: var(--accent-red);
+}
+
+.dbtn:active{
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #0e0f11;
+}
+
+.dbtn.up{ top:0; left:56px; }
+.dbtn.down{ bottom:0; left:56px; }
+.dbtn.left{ top:56px; left:0; }
+.dbtn.right{ top:56px; right:0; }
+.dbtn.center{
+  top:56px; left:56px;
+  background: radial-gradient(circle at 35% 30%, var(--accent-red), var(--accent-red-dim));
+  border-radius: 50%;
+  box-shadow: 0 4px 0 #4a1310, 0 0 18px var(--accent-red-glow);
+  color: #fff;
+}
+
+.dbtn.center:active{
+  box-shadow: 0 1px 0 #4a1310, 0 0 10px var(--accent-red-glow);
+}
+
+.footer-hint{
+  text-align:center;
+  color: var(--text-dim);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+/* small screens: stack vertically */
+@media (max-width: 720px){
+  .console{
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+  .screen-panel{
+    height: 55vh;
+  }
+  .control-panel{
+    width: 100%;
+  }
+}
