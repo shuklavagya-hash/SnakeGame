@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNAKE II</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="console">
+
+  <!-- LEFT: GAME SCREEN -->
+  <div class="screen-panel">
+    <div class="screen-bezel">
+      <div class="screen">
+        <canvas id="game" width="160" height="124"></canvas>
+        <div id="overlay" class="overlay">
+          <h1>SNAKE II</h1>
+          <p>Use arrows or the D-pad</p>
+          <p class="blink">Press CENTER to start</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: CONTROL PANEL -->
+  <div class="control-panel">
+    <div class="panel-section">
+      <div class="brand">NOKIA <span>SNAKE II</span></div>
+      <div class="stats-plate">
+        <div class="stat-row"><span>SCORE</span><span class="value" id="scoreLabel">000</span></div>
+        <div class="stat-row"><span>BEST</span><span class="value" id="bestLabel">000</span></div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="soft-label">MENU</div>
+      <div class="dpad">
+        <button class="dbtn up" data-dir="up" aria-label="Up">▲</button>
+        <button class="dbtn left" data-dir="left" aria-label="Left">◀</button>
+        <button class="dbtn center" data-dir="center" aria-label="Start / Pause">●</button>
+        <button class="dbtn right" data-dir="right" aria-label="Right">▶</button>
+        <button class="dbtn down" data-dir="down" aria-label="Down">▼</button>
+      </div>
+      <div class="soft-label">EXIT</div>
+    </div>
+
+    <div class="footer-hint">NO SIGN-UP · NO WI-FI NEEDED · JUST PLAY</div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
